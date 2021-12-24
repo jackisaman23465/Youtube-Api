@@ -13,6 +13,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.jagertech.youtubeapi.R
 import com.jagertech.youtubeapi.databinding.ActivityMainBinding
+import com.jagertech.youtubeapi.model.api.ApiManager
+import com.jagertech.youtubeapi.model.api.dataformat.SearchResult
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +27,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//        ApiManager().youtubeApi.searchVideo(q="你要不要吃").enqueue(object: Callback<SearchResult> {
+//            override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
+//                Timber.d(response.body()?.etag)
+//                response.body()?.let {
+//                    Timber.d(it.toString())
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<SearchResult>, t: Throwable) {
+//                Timber.d(t.localizedMessage)
+//            }
+//
+//        })
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -36,12 +56,16 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+
+        //設置各app bar頂層級fragment
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        //設置側拉選單點擊事件
         navView.setupWithNavController(navController)
     }
 

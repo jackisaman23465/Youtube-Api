@@ -1,45 +1,28 @@
-package com.jagertech.youtubeapi.view.gallery
+package com.jagertech.youtubeapi.view.video
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
-import com.jagertech.youtubeapi.databinding.FragmentGalleryBinding
+import com.jagertech.youtubeapi.databinding.FragmentHomeBinding
+import com.jagertech.youtubeapi.databinding.FragmentVideoBinding
 import timber.log.Timber
 
-class GalleryFragment : Fragment() , YouTubePlayer.OnInitializedListener{
+class VideoFragment: Fragment(), YouTubePlayer.OnInitializedListener {
 
-    private lateinit var galleryViewModel: GalleryViewModel
-    private var _binding: FragmentGalleryBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var _binding: FragmentVideoBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        galleryViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
-
-        _binding = FragmentGalleryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-//        binding.video.initialize("",this)
-        return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        _binding = FragmentVideoBinding.inflate(inflater,container,false)
+        _binding.video.initialize("htyhry",this)
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onInitializationSuccess(
